@@ -8,7 +8,7 @@ The analysis helps to create better pricing strategies.
 
 ## Datasources
 
-### Datasource1: Online Retail
+### Datasource1: Hotel Booking Demand
 * Metadata URL: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
 * Data Type: CSV
 
