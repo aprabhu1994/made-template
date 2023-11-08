@@ -28,6 +28,8 @@ column_types = {
 engine = create_engine('sqlite:///' + path)
 
 # Write the data to the SQLite database
-airport_data.to_sql('airports', con=engine, if_exists='replace', index=False)
-
+airport_data.to_sql('airports', con=engine, if_exists='replace', index=False, dtype=column_types)
 print("Data written successfully to 'airports.sqlite'.")
+
+# Close the database connection
+engine.dispose()
