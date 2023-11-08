@@ -1,7 +1,7 @@
 # Project Plan
 
 ## Summary
-This projects analyzes the pricing in different industries (retail, hotel booking).
+This project analyzes the pricing in the hotel booking industry.
 
 ## Rationale
 The analysis helps to create better pricing strategies. 
@@ -9,18 +9,17 @@ The analysis helps to create better pricing strategies.
 ## Datasources
 
 ### Datasource1: Online Retail
-* Metadata URL: https://archive.ics.uci.edu/dataset/352/online+retail
-* Data URL: https://archive.ics.uci.edu/static/public/352/online+retail.zip
-* Data Type: xlsx
+* Metadata URL: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
+* Data Type: CSV
 
-This is a transnational data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail.
+This data set contains booking information for a city hotel and a resort hotel, and includes information such as when the booking was made, length of stay, the number of adults, children, and/or babies, and the number of available parking spaces, among other things.
 
 ### Datasource2 : Inside AirBnB
 * Metadata URL: http://insideairbnb.com/get-the-data/
 * Data URL: http://data.insideairbnb.com/germany/be/berlin/2023-09-16/data/listings.csv.gz
 * Data Type: CSV
 
-The static data represent the charging facilities of all operators who have completed the notification procedure of the Federal Network Agency and have consented to publication on the Internet.
+Inside Airbnb has data on dozens of cities and countries around the world.
 
 ## Work Packages
 1.  Data Acquistion
