@@ -64,5 +64,6 @@ pipeline TrainstopsDBPipeline {
 
     constraint NonEmptyValues oftype LengthConstraint {
         minLength: 1;
+        maxLength: 9007199254740991;
     }
 }
