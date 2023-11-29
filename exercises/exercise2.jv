@@ -4,6 +4,7 @@ pipeline TrainstopsDBPipeline {
         -> TrainstopsDBTableInterpreter
         -> TrainstopsDBLoader;
 
+
     block TrainstopsDBCSVExtractor oftype CSVExtractor {
         url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";
         delimiter: ";";
