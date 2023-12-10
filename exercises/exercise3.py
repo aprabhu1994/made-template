@@ -15,11 +15,9 @@ df.columns = ['date', 'CIN', 'name', 'petrol', 'diesel', 'gas', 'electro', 'hybr
 df['CIN'] = df['CIN'].astype(str).str.zfill(5)
 
 # Validate positive integers
-df = df.apply(pd.to_numeric, errors='coerce')
-df = df.dropna()
-
-# Validate positive integers
-df = df[(df[['petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']] > 0).all(axis=1)]
+numeric_columns = ['petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']
+df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+df = df[df[numeric_columns] > 0]
 
 # Step 4: Use fitting SQLite types
 # Define SQLite types
