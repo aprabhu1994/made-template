@@ -7,14 +7,8 @@ df = pd.read_csv(url, sep=";", encoding='ISO-8859-1', skiprows=6, skipfooter=4, 
 
 
 # Step 2: Reshape the data structure
-columns_to_keep = ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Insgesamt', 'Insgesamt.1', 'Insgesamt.2', 'Insgesamt.3', 'Insgesamt.4', 'Insgesamt.5', 'Insgesamt.6']
-new_column_names = ['date', 'CIN', 'name', 'petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']
-
-column_mapping = dict(zip(columns_to_keep, new_column_names))
-
-df.rename(columns=column_mapping, inplace=True)
-
-df = df[new_column_names]
+df = df.iloc[:, [0, 1, 2, 12, 22, 32, 42, 52, 62, 72]]
+df.columns = ['date', 'CIN', 'name', 'petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']
 
 # Step 3: Validate data
 # Validate CINs
@@ -25,10 +19,7 @@ df = df.apply(pd.to_numeric, errors='coerce')
 df = df.dropna()
 
 # Validate positive integers
-df = df[(df['date'].astype(str).str.isnumeric()) &
-        (df['name'].astype(str).str.isnumeric()) &
-        (df['CIN'].astype(str).str.isnumeric()) &
-        (df[['petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']] > 0).all(axis=1)]
+df = df[(df[['petrol', 'diesel', 'gas', 'electro', 'hybrid', 'plugInHybrid', 'others']] > 0).all(axis=1)]
 
 # Step 4: Use fitting SQLite types
 # Define SQLite types
