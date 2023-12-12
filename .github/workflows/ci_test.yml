@@ -1,0 +1,29 @@
+name: CI Test
+
+on:
+  push:
+    paths:
+      - 'data/**'
+      - 'project/**'
+    branches:
+      - main
+    branches-ignore:
+      - exercise/**
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Run tests
+        run: |
+          chmod +x ./project/tests.sh
+          ./project/tests.sh
