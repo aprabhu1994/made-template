@@ -2,7 +2,7 @@ import opendatasets as od
 import sqlite3
 import pandas as pd
 
-#Testing Github actions ######
+#Testing Github actions ########
 
 hotel_booking_dataset = 'https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand/download?datasetVersionNumber=1'
 
