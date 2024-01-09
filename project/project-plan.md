@@ -24,8 +24,7 @@ Since 2008, guests and hosts have used Airbnb to expand on traveling possibiliti
 
 ## Work Packages
 1.  Data Acquisition
-2.	Exploratory Analysis
-3.	Visualization of the datasets
-4.	Build pricing models
-5.  Evaluation & Deployment
-6.  Create final documentation
+2.  Layout Project Plan
+3.	Build ETL pipeline
+4.	Automation tests for pipeline
+5.	Report writing & Building Pricing Strategies
