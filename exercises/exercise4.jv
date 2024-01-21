@@ -1,0 +1,87 @@
+pipeline MowestaPipeline {
+    MowestaZipExtractor
+        -> ZipInterpreter
+        -> CsvFilePicker
+        -> CSVTextFileInterpreter
+        -> DataCsvInterpreter
+        -> TableColumnDeleter
+        -> FirstRowDeleter
+        -> MowestaTableInterpreter
+        -> TempCelsiusToFahrenheitTransformer
+        -> BatTempCelsiusToFahrenheitTransformer
+        -> MowestaDBLoader;
+
+    
+    block MowestaZipExtractor oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+    block ZipInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block CsvFilePicker oftype FilePicker {
+        path: "/data.csv";
+    }
+
+    block CSVTextFileInterpreter oftype TextFileInterpreter {
+        encoding: "utf8";
+    }
+
+    block DataCsvInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block TableColumnDeleter oftype ColumnDeleter {
+        delete: [column F, column G, column H, column I, column L, column M, column N, column O];
+    }
+
+    block FirstRowDeleter oftype RowDeleter {
+        delete: [row 1];
+    }
+
+    block MowestaTableInterpreter oftype TableInterpreter {
+        header: false;
+        columns: [
+            "Geraet" oftype PosIntegerType,
+            "Hersteller" oftype text,
+            "Model" oftype text,
+            "Monat" oftype integer,
+            "Temperatur" oftype decimal,
+            "Batterietemperatur" oftype decimal,
+            "Geraet aktiv" oftype text,
+        ];
+    }
+
+    block TempCelsiusToFahrenheitTransformer oftype TableTransformer {
+        inputColumns: ["Temperatur"];
+        outputColumn: "Temperatur";
+        use: CelsiusToFahrenheit;
+    }
+
+    block BatTempCelsiusToFahrenheitTransformer oftype TableTransformer {
+        inputColumns: ["Batterietemperatur"];
+        outputColumn: "Batterietemperatur";
+        use: CelsiusToFahrenheit;
+    }
+
+    transform CelsiusToFahrenheit {
+        from celsius oftype decimal;
+        to fahrenheit oftype decimal;
+        fahrenheit: (celsius * 9/5) + 32;
+    }
+
+    block MowestaDBLoader oftype SQLiteLoader {
+        table: "temperatures";
+        file: "./temperatures.sqlite";
+    }
+
+    valuetype PosIntegerType oftype integer {
+        constraints: [ PostRange ];
+    }
+
+    constraint PostRange oftype RangeConstraint {
+        lowerBound: 1;
+        lowerBoundInclusive: true;
+    }
+}
